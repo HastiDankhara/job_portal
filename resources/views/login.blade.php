@@ -29,7 +29,6 @@
                             </div> 
                             <div class="justify-content-between d-flex">
                             <button type="submit" class="btn btn-primary mt-2">Login</button>
-                                <a href="{{ route('forgot') }}" class="mt-3">Forgot Password?</a>
                             </div>
                         </form>                    
                     </div>

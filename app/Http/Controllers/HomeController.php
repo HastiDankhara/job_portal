@@ -164,30 +164,37 @@ class HomeController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Current password is incorrect'], 403);
         }
     }
-    public function forgotpassword()
-    {
-        return view('forgot');
-    }
-    public function processforgot(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email|exists:users,email',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->route('forgot')
-                ->withErrors($validator)
-                ->withInput();
-        }
-        $user = User::where('email', $request->email)->first();
-        $maildata = [
-            'name' => $user,
-            'email' => $request->email,
-            'token' => Str::random(60), // Generate a random token
-        ];
-        Mail::to($request->email)->send(new ResetPasswordEmail($maildata));
-        return redirect()->route('forgot');
-    }
-    public function resetpassword() {}
+    // public function forgotpassword()
+    // {
+    //     return view('forgot');
+    // }
+    // public function processforgot(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'email' => 'required|email|exists:users,email',
+    //     ]);
+    //     if ($validator->fails()) {
+    //         return redirect()->route('forgot')
+    //             ->withErrors($validator)
+    //             ->withInput();
+    //     }
+    //     $user = User::where('email', $request->email)->first();
+    //     $maildata = [
+    //         'name' => $user,
+    //         'email' => $request->email,
+    //         'token' => Str::random(60), // Generate a random token
+    //     ];
+    //     Mail::to($request->email)->send(new ResetPasswordEmail($maildata));
+    //     return redirect()->route('forgot');
+    // }
+    // public function resetpassword($token)
+    // {
+    //     $user = User::where('remember_token', $token)->first();
+    //     if ($user == null) {
+    //         return redirect()->route('login')->withErrors(['token' => 'Invalid or expired token']);
+    //     }
+    //     // return view('resetpassword', compact('user', 'token'));
+    // }
     public function logout()
     {
         Auth::logout();
